@@ -4,5 +4,6 @@
 1. 进入根目录(即configure所在目录)
 2. 赋予权限: `chmod a+x config.sub configure`
 3. 编译: `./configure ubuntu`
+4. 修改文件: `line=`grep -n "uint8_t unsigned char" config.h |cut -f1 -d:`| sed -i $line',+3d' config.h` [错误参考](https://www.cnblogs.com/jianfengyun/articles/5152845.html)
 4. 编译库: `cd lib && make`
 5. 编译程序: `cd ../pipe && make` 生成多个可执行文件,对应其源文件. 其它文件夹代码也是直接进入文件夹直接`make`就好
