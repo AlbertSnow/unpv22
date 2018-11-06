@@ -1,0 +1,8 @@
+*/*
+
+!*/*.c
+
+# vim tmp file
+*.swp
+*.swo
+
