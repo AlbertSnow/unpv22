@@ -1,6 +1,7 @@
 */*
 
 !*/*.c
+!*/Makefile
 
 # vim tmp file
 *.swp
