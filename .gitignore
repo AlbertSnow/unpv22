@@ -7,3 +7,8 @@
 *.swp
 *.swo
 
+# configure tmp file
+Make.defines
+Makefile
+config.h
+config.log
