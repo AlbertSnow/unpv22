@@ -97,6 +97,9 @@ void Ftruncate(int fd, off_t length) {
         err_sys("ftruncate error");
 }
 
+// 获取命令行参数, 第三个参数, 比如是"em:z:"就需要匹配"exename -e -m m_option -z z_option"
+// 匹配错误会把错误打印并退出
+// optind默认是1,表示匹配之后的下一个参数索引
 int Getopt(int argc, char *const *argv, const char *str) {
     int opt;
 
@@ -170,6 +173,8 @@ void Munmap(void *addr, size_t len) {
 
 #ifdef HAVE_MQUEUE_H
 
+// 创建一个消息队列或者打开一个消息队列(根据pathname是否存在来判断是创建还是打开)
+// 返回一个消息队列描述符(成功的话),失败返回-1,并设置全局变量errno
 mqd_t Mq_open(const char *pathname, int oflag, ...) {
     mqd_t mqd;
     va_list ap;
@@ -508,6 +513,13 @@ void Sigpending(sigset_t *set) {
         err_sys("sigpending error");
 }
 
+// sigprocmask 会把第二个参数&newmask里的信号(newmask包括SIGUSR1信号)阻塞(第一个参数SIG_BLOCK决定)
+// 即如果SIGUSR1信号产生,也不会直接调用其处理函数,而是阻塞它,直到下面的sigsuspend()调用
+// sigprocmask:
+// 	参数:
+// 		how: 决定对第二个参数set如何处理,有BLOCK(阻塞)
+// 		set: 信号掩码集合
+// 		oset: 返回原先的信号掩码集合
 void Sigprocmask(int how, const sigset_t *set, sigset_t *oset) {
     if(sigprocmask(how, set, oset) == -1)
         err_sys("sigprocmask error");
@@ -521,6 +533,7 @@ void Sigqueue(pid_t pid, int signo, const union sigval val) {
 #endif
 
 #ifdef HAVE_SIGWAIT
+// sigwait等待直到set里面的任意一个信号被触发,并把触发信号赋值给signo
 void Sigwait(const sigset_t *set, int *signo) {
     int n;
 
