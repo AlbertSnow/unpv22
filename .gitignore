@@ -12,3 +12,5 @@ Make.defines
 Makefile
 config.h
 config.log
+
+*.a
