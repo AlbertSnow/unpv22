@@ -1,18 +1,17 @@
-#include	"unpipc.h"
+// comment: read/write实现cat功能
+#include "unpipc.h"
 
-int
-main(int argc, char **argv)
-{
-	int		fd, n;
-	char	buff[BUFFSIZE];
+int main(int argc, char **argv) {
+    int fd, n;
+    char buff[BUFFSIZE];
 
-	if (argc != 2)
-		err_quit("usage: mycat1 <pathname>");
+    if(argc != 2)
+        err_quit("usage: mycat1 <pathname>");
 
-	fd = Open(argv[1], O_RDONLY);
+    fd = Open(argv[1], O_RDONLY);
 
-	while ( (n = Read(fd, buff, BUFFSIZE)) > 0)
-		Write(STDOUT_FILENO, buff, n);
+    while((n = Read(fd, buff, BUFFSIZE)) > 0)
+        Write(STDOUT_FILENO, buff, n);
 
-	exit(0);
+    exit(0);
 }
